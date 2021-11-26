@@ -1,9 +1,10 @@
 package com.example.asteroids;
 import javafx.application.Application;
 
-public class Main{
+import javafx.stage.Stage;
 
-    public static void main(String[] args){
-        Application.launch(GameWindow.class, args);
+public class Main extends Application{
+    public void start(Stage stage){
+        GameWindow gameWindow=new GameWindow(stage);
     }
 }
