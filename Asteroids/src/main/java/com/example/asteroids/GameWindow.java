@@ -1,31 +1,30 @@
 package com.example.asteroids;
 
 
-import javafx.event.EventType;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.security.Key;
 
 
 public class GameWindow {
 
     private Pane pane;
-    private Ship ship;
-    private Timer timer;
+    private Entity ship;
+    private Entity asteroid;
 
     public GameWindow(Stage stage) {
         createPane();
         Scene scene=createScene(pane);
-        createShip(scene);
+        createShip();
+        createAsteroid();
         addElements(this.ship.getCharacter());
+        addElements(this.asteroid.getCharacter());
         stage.setScene(scene);
         stage.show();
-        timer=new Timer(scene,ship);
+        Timer timer = new Timer(scene, (Ship) ship, (Asteroid) asteroid);
+
     }
 
     public void createPane(){
@@ -33,8 +32,11 @@ public class GameWindow {
         this.pane.setPrefSize(600,400);
     }
 
-    public void createShip(Scene scene){
+    public void createShip(){
         this.ship = new Ship(150,100);
+    }
+    public void createAsteroid(){
+        this.asteroid=new Asteroid(50,50);
     }
 
     public Scene createScene(Pane pane){
