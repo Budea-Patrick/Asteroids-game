@@ -1,7 +1,9 @@
 package com.example.asteroids;
 
 import javafx.geometry.Point2D;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Shape;
 
 public abstract class Entity {
 
@@ -10,9 +12,11 @@ public abstract class Entity {
 
     public Entity(Polygon character, int x, int y) {
         this.character = character;
+        this.character.setFill(Color.BLACK);
+        this.character.setStroke(Color.WHITE);
         this.character.setTranslateX(x);
         this.character.setTranslateY(y);
-        this.movement=new Point2D(0,0);
+        this.movement=new Point2D(1,1);
     }
 
     public Polygon getCharacter() {
@@ -35,9 +39,13 @@ public abstract class Entity {
     public void accelerate() {
         double changeX = Math.cos(Math.toRadians(character.getRotate()));
         double changeY = Math.sin(Math.toRadians(character.getRotate()));
-        changeX=changeX*0.1;
-        changeY=changeY*0.1;
+        changeX=changeX*0.05;
+        changeY=changeY*0.05;
         movement = movement.add(changeX, changeY);
     }
-
+    
+    public boolean collision(Entity character){
+        Shape collisionArea=Shape.intersect(this.character, character.getCharacter());
+        return collisionArea.getBoundsInLocal().getWidth()!=-1;
+    }
 }

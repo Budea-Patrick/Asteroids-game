@@ -7,11 +7,12 @@ import javafx.scene.input.KeyCode;
 import java.util.HashMap;
 import java.util.Map;
 
-public record Timer(Scene scene, Ship ship) {
+public record Timer(Scene scene, Ship ship, Asteroid asteroid) {
 
-    public Timer(Scene scene, Ship ship) {
+    public Timer(Scene scene, Ship ship, Asteroid asteroid) {
         this.scene = scene;
         this.ship = ship;
+        this.asteroid = asteroid;
         startTimer();
     }
 
@@ -37,9 +38,14 @@ public record Timer(Scene scene, Ship ship) {
                     ship.accelerate();
                 }
                 ship.move();
+                asteroid.turnRight();
+                //asteroid.turnRight();
+                asteroid.move();
+                if(ship.collision(asteroid)){
+                    stop();
+                }
             }
 
         }.start();
     }
-
 }

@@ -4,6 +4,7 @@ package com.example.asteroids;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -22,6 +23,7 @@ public class GameWindow {
         addElements(this.ship.getCharacter());
         addElements(this.asteroid.getCharacter());
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
         Timer timer = new Timer(scene, (Ship) ship, (Asteroid) asteroid);
 
@@ -40,7 +42,9 @@ public class GameWindow {
     }
 
     public Scene createScene(Pane pane){
-        return new Scene(pane);
+        Scene scene=new Scene(pane);
+        scene.setFill(Color.BLACK);
+        return scene;
     }
 
     public void addElements(Node node){
