@@ -4,15 +4,16 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public record Timer(Scene scene, Ship ship, Asteroid asteroid) {
+public record Timer(Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
 
-    public Timer(Scene scene, Ship ship, Asteroid asteroid) {
+    public Timer(Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
         this.scene = scene;
         this.ship = ship;
-        this.asteroid = asteroid;
+        this.asteroids = asteroids;
         startTimer();
     }
 
@@ -38,14 +39,13 @@ public record Timer(Scene scene, Ship ship, Asteroid asteroid) {
                     ship.accelerate();
                 }
                 ship.move();
-                asteroid.turnRight();
-                //asteroid.turnRight();
-                asteroid.move();
-                if(ship.collision(asteroid)){
-                    stop();
-                }
+                asteroids.forEach(asteroid -> asteroid.move());
+                asteroids.forEach(asteroid -> {
+                    if(ship.collision(asteroid)){
+                        stop();
+                    }
+                });
             }
-
         }.start();
     }
 }

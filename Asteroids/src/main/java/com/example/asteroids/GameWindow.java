@@ -7,25 +7,27 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.Random;
 
 
 public class GameWindow {
 
     private Pane pane;
     private Entity ship;
-    private Entity asteroid;
+    private ArrayList<Asteroid> asteroids;
 
     public GameWindow(Stage stage) {
         createPane();
         Scene scene=createScene(pane);
         createShip();
-        createAsteroid();
+        createAsteroids();
         addElements(this.ship.getCharacter());
-        addElements(this.asteroid.getCharacter());
+        addElements(asteroids);
         stage.setScene(scene);
         stage.setFullScreen(true);
         stage.show();
-        Timer timer = new Timer(scene, (Ship) ship, (Asteroid) asteroid);
+        Timer timer = new Timer(scene, (Ship) ship, asteroids);
 
     }
 
@@ -37,8 +39,14 @@ public class GameWindow {
     public void createShip(){
         this.ship = new Ship(150,100);
     }
-    public void createAsteroid(){
-        this.asteroid=new Asteroid(50,50);
+    public void createAsteroids(){
+
+        asteroids=new ArrayList<>();
+        for(int i=0;i<5;i++){
+            Random rnd= new Random();
+            Asteroid asteroid=new Asteroid(rnd.nextInt(100), rnd.nextInt(100));
+            asteroids.add(asteroid);
+        }
     }
 
     public Scene createScene(Pane pane){
@@ -47,7 +55,12 @@ public class GameWindow {
         return scene;
     }
 
-    public void addElements(Node node){
-        this.pane.getChildren().add(node);
+    public void addElements(ArrayList <Asteroid> asteroids){
+        asteroids.forEach(asteroid -> pane.getChildren().add(asteroid.getCharacter()));
     }
+
+    public void addElements(Node node){
+        pane.getChildren().add(node);
+    }
+
 }
