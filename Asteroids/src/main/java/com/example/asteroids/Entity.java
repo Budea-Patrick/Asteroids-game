@@ -34,6 +34,19 @@ public abstract class Entity {
     public void move() {
         character.setTranslateX(character.getTranslateX() + movement.getX());
         character.setTranslateY(character.getTranslateY() + movement.getY());
+
+        if(character.getTranslateX()<0){
+            this.character.setTranslateX(this.character.getTranslateX() + GameWindow.getWidth());
+        }
+        if(character.getTranslateX()>GameWindow.getWidth()){
+            this.character.setTranslateX(this.character.getTranslateX()%GameWindow.getWidth());
+        }
+        if(this.character.getTranslateY()<0){
+            this.character.setTranslateY(this.character.getTranslateY()+GameWindow.getHeight());
+        }
+        if(this.character.getTranslateY()>GameWindow.getHeight()){
+            this.character.setTranslateY(this.character.getTranslateY()%GameWindow.getHeight());
+        }
     }
 
     public void accelerate() {

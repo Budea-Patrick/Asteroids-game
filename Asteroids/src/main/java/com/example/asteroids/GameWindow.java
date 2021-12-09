@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class GameWindow {
 
-    private Pane pane;
+    private static Pane pane;
     private Entity ship;
     private ArrayList<Asteroid> asteroids;
 
@@ -24,16 +24,15 @@ public class GameWindow {
         createAsteroids();
         addElements(this.ship.getCharacter());
         addElements(asteroids);
-        stage.setScene(scene);
-        stage.setFullScreen(true);
-        stage.show();
-        Timer timer = new Timer(scene, (Ship) ship, asteroids);
-
+        setStage(stage, scene);
+        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids);
     }
 
     public void createPane(){
-        this.pane=new Pane();
-        this.pane.setPrefSize(600,400);
+        pane=new Pane();
+        int height = 600;
+        int width = 400;
+        pane.setPrefSize(height, width);
     }
 
     public void createShip(){
@@ -63,4 +62,17 @@ public class GameWindow {
         pane.getChildren().add(node);
     }
 
+    public void setStage(Stage stage, Scene scene){
+        stage.setScene(scene);
+        ///stage.setFullScreen(true);
+        stage.show();
+    }
+
+    public static double getHeight() {
+        return pane.getHeight();
+    }
+
+    public static double getWidth() {
+        return pane.getWidth();
+    }
 }

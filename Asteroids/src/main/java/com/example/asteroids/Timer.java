@@ -2,16 +2,19 @@ package com.example.asteroids;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public record Timer(Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
+public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
 
-    public Timer(Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
+    public Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
         this.scene = scene;
+        this.stage=stage;
         this.ship = ship;
         this.asteroids = asteroids;
         startTimer();
@@ -42,7 +45,12 @@ public record Timer(Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
                 asteroids.forEach(asteroid -> asteroid.move());
                 asteroids.forEach(asteroid -> {
                     if(ship.collision(asteroid)){
-                        stop();
+                        Alert alert= new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("GAME OVER!");
+                        alert.setContentText("YOU SUCK!!!");
+                        alert.show();
+                        this.stop();
+                        stage.close();
                     }
                 });
             }
