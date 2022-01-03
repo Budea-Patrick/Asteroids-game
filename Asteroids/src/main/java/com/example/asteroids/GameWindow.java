@@ -73,6 +73,7 @@ public class GameWindow {
         stage.show();
     }
 
+
     public static double getHeight() {
         return pane.getHeight();
     }

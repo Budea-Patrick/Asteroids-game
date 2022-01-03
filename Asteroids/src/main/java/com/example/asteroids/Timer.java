@@ -7,10 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane) {
@@ -88,6 +85,16 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                     pane.getChildren().remove(projectile.getCharacter());
                     projectiles.remove(projectile);
                 });
+
+                Iterator<Projectile> iterator=projectiles.iterator();
+                while(iterator.hasNext()){
+                    Projectile projectile=iterator.next();
+                    if(System.currentTimeMillis()-projectile.getStartTime()>2000){
+                        pane.getChildren().remove(projectile.getCharacter());
+                        iterator.remove();
+
+                    }
+                }
             }
         }.start();
     }
