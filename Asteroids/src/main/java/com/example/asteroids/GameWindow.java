@@ -16,36 +16,41 @@ public class GameWindow {
     private static Pane pane;
     private Entity ship;
     private ArrayList<Asteroid> asteroids;
+    private ArrayList<Projectile> projectiles;
+    public static int width=600;
+    public static int height=600;
 
     public GameWindow(Stage stage) {
         createPane();
         Scene scene=createScene(pane);
         createShip();
         createAsteroids();
+        createProjectiles();
         addElements(this.ship.getCharacter());
         addElements(asteroids);
         setStage(stage, scene);
-        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids);
+        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane);
     }
 
     public void createPane(){
         pane=new Pane();
-        int height = 600;
-        int width = 400;
-        pane.setPrefSize(height, width);
+        pane.setPrefSize(width, height);
     }
 
     public void createShip(){
-        this.ship = new Ship(150,100);
+        this.ship = new Ship(width/2,height/2);
     }
     public void createAsteroids(){
 
         asteroids=new ArrayList<>();
         for(int i=0;i<5;i++){
             Random rnd= new Random();
-            Asteroid asteroid=new Asteroid(rnd.nextInt(100), rnd.nextInt(100));
+            Asteroid asteroid=new Asteroid(rnd.nextInt(width/3), rnd.nextInt(height));
             asteroids.add(asteroid);
         }
+    }
+    public void createProjectiles(){
+        projectiles=new ArrayList<>();
     }
 
     public Scene createScene(Pane pane){
@@ -64,7 +69,7 @@ public class GameWindow {
 
     public void setStage(Stage stage, Scene scene){
         stage.setScene(scene);
-        ///stage.setFullScreen(true);
+        //stage.setFullScreen(true);
         stage.show();
     }
 

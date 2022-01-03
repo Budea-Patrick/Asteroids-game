@@ -4,29 +4,38 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
+public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane) {
 
-    public Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids) {
+    public Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane) {
         this.scene = scene;
         this.stage=stage;
         this.ship = ship;
         this.asteroids = asteroids;
+        this.projectiles=projectiles;
+        this.pane=pane;
         startTimer();
     }
 
+
     public void startTimer() {
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
+        AtomicBoolean pressed= new AtomicBoolean(false);
+
         scene.setOnKeyPressed(keyEvent -> {
             pressedKeys.put(keyEvent.getCode(), Boolean.TRUE);
         });
         scene.setOnKeyReleased(keyEvent -> {
             pressedKeys.put(keyEvent.getCode(), Boolean.FALSE);
+            pressed.set(false);
         });
 
         new AnimationTimer() {
@@ -41,6 +50,15 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 if (pressedKeys.getOrDefault(KeyCode.UP, false)) {
                     ship.accelerate();
                 }
+                if(pressedKeys.getOrDefault(KeyCode.SPACE, false) && projectiles.size()<10 && !pressed.get()){
+                    Projectile projectile=new Projectile((int)ship.getCharacter().getTranslateX(),(int)ship.getCharacter().getTranslateY());
+                    projectile.getCharacter().setRotate(ship.getCharacter().getRotate());
+                    projectiles.add(projectile);
+                    projectile.accelerate();
+                    projectile.setMovement(projectile.getMovement().normalize().multiply(3));
+                    pane.getChildren().add(projectile.getCharacter());
+                    pressed.set(true);
+                }
                 ship.move();
                 asteroids.forEach(asteroid -> asteroid.move());
                 asteroids.forEach(asteroid -> {
@@ -52,6 +70,23 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                         this.stop();
                         stage.close();
                     }
+                });
+                projectiles.forEach(projectile -> projectile.move());
+                List<Projectile> projectilesToRemove = projectiles.stream().filter(projectile -> {
+                    List<Asteroid> collisions = asteroids.stream()
+                            .filter(asteroid -> asteroid.collision(projectile)).toList();
+                    if (collisions.isEmpty()) {
+                        return false;
+                    }
+                    collisions.stream().forEach(collided -> {
+                        asteroids.remove(collided);
+                        pane.getChildren().remove(collided.getCharacter());
+                    });
+                    return true;
+                }).toList();
+                projectilesToRemove.forEach(projectile -> {
+                    pane.getChildren().remove(projectile.getCharacter());
+                    projectiles.remove(projectile);
                 });
             }
         }.start();

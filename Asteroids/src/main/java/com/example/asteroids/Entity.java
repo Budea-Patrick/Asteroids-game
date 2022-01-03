@@ -16,7 +16,15 @@ public abstract class Entity {
         this.character.setStroke(Color.WHITE);
         this.character.setTranslateX(x);
         this.character.setTranslateY(y);
-        this.movement=new Point2D(1,1);
+        this.movement=new Point2D(0,0);
+    }
+
+    public Point2D getMovement() {
+        return movement;
+    }
+
+    public void setMovement(Point2D movement) {
+        this.movement = movement;
     }
 
     public Polygon getCharacter() {
