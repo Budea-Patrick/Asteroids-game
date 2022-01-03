@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -19,6 +21,7 @@ public class GameWindow {
     private ArrayList<Projectile> projectiles;
     public static int width=600;
     public static int height=600;
+    private Text text;
 
     public GameWindow(Stage stage) {
         createPane();
@@ -26,10 +29,12 @@ public class GameWindow {
         createShip();
         createAsteroids();
         createProjectiles();
+        createText();
         addElements(this.ship.getCharacter());
         addElements(asteroids);
+        addElements(text);
         setStage(stage, scene);
-        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane);
+        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, text);
     }
 
     public void createPane(){
@@ -74,6 +79,13 @@ public class GameWindow {
     }
 
 
+    public void createText()
+    {
+        text=new Text(10,20,"Points: 0");
+        text.setFont(Font.font("Verdana",20));
+        text.setFill(Color.WHITE);
+    }
+
     public static double getHeight() {
         return pane.getHeight();
     }
@@ -81,4 +93,5 @@ public class GameWindow {
     public static double getWidth() {
         return pane.getWidth();
     }
+
 }

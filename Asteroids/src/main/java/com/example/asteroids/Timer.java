@@ -5,20 +5,23 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane) {
+public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane, Text text) {
 
-    public Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane) {
+    public Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> asteroids, ArrayList<Projectile> projectiles, Pane pane, Text text) {
         this.scene = scene;
         this.stage=stage;
         this.ship = ship;
         this.asteroids = asteroids;
         this.projectiles=projectiles;
         this.pane=pane;
+        this.text=text;
         startTimer();
     }
 
@@ -26,6 +29,7 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
     public void startTimer() {
         Map<KeyCode, Boolean> pressedKeys = new HashMap<>();
         AtomicBoolean pressed= new AtomicBoolean(false);
+        AtomicInteger points=new AtomicInteger();
 
         scene.setOnKeyPressed(keyEvent -> {
             pressedKeys.put(keyEvent.getCode(), Boolean.TRUE);
@@ -75,7 +79,7 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                     if (collisions.isEmpty()) {
                         return false;
                     }
-                    collisions.stream().forEach(collided -> {
+                    collisions.forEach(collided -> {
                         asteroids.remove(collided);
                         pane.getChildren().remove(collided.getCharacter());
                     });
@@ -84,6 +88,7 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 projectilesToRemove.forEach(projectile -> {
                     pane.getChildren().remove(projectile.getCharacter());
                     projectiles.remove(projectile);
+                    text.setText("Points: "+points.addAndGet(1000));
                 });
 
                 Iterator<Projectile> iterator=projectiles.iterator();
@@ -95,6 +100,15 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
 
                     }
                 }
+
+                if(Math.random()<0.010){
+                    Asteroid asteroid=new Asteroid(GameWindow.width, GameWindow.height);
+                    if(!asteroid.collision(ship)){
+                        asteroids.add(asteroid);
+                        pane.getChildren().add(asteroid.getCharacter());
+                    }
+                }
+
             }
         }.start();
     }
