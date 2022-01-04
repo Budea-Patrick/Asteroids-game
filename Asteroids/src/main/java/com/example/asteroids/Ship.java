@@ -1,18 +1,19 @@
 package com.example.asteroids;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Ship extends Entity {
 
 
     public Ship(int x, int y) {
-        super(new Polygon(-5,-5,10,0,-5,5), x, y);
+        super(new Polygon(-5, -5, 10, 0, -5, 5), x, y);
     }
 
-    public void shoot(ArrayList<Projectile> projectiles, Pane pane)
-    {
-        Projectile projectile=new Projectile((int)this.getCharacter().getTranslateX(),(int)this.getCharacter().getTranslateY());
+    public void shoot(ArrayList<Projectile> projectiles, Pane pane) {
+        Projectile projectile = new Projectile((int) this.getCharacter().getTranslateX(), (int) this.getCharacter().getTranslateY());
         projectile.getCharacter().setRotate(this.getCharacter().getRotate());
         projectiles.add(projectile);
         projectile.accelerate();
@@ -20,4 +21,14 @@ public class Ship extends Entity {
         pane.getChildren().add(projectile.getCharacter());
     }
 
+    public boolean collisionWithAsteroid(ArrayList<Asteroid> asteroids, TextScore textScore) {
+        AtomicBoolean checkForCollision= new AtomicBoolean(false);
+        asteroids.forEach(asteroid -> asteroid.move());
+        asteroids.forEach(asteroid -> {
+            if (this.collision(asteroid)) {
+                checkForCollision.set(true);
+            }
+        });
+        return checkForCollision.get();
+    }
 }

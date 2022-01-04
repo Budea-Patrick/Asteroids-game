@@ -14,4 +14,6 @@ public class Projectile extends Entity {
     public long getStartTime() {
         return startTime;
     }
+
+
 }

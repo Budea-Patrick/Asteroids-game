@@ -8,10 +8,10 @@ import java.util.Scanner;
 
 public class TextScore {
 
-    private final Text text;
+    private static Text text = null;
 
     public TextScore() {
-        this.text = new Text(10,20,"Points: 0");
+        text = new Text(10,20,"Points: 0");
         text.setFont(Font.font("Verdana",20));
         text.setFill(Color.WHITE);
     }
@@ -20,9 +20,11 @@ public class TextScore {
         return text;
     }
 
-    public long textParsing()
+    public static long textParsing()
     {
         String parsed=text.toString();
         return new Scanner(parsed).useDelimiter("\\D+").nextLong();
     }
+
+
 }

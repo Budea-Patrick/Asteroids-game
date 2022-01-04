@@ -21,14 +21,15 @@ public class GameWindow {
     private Entity ship;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
-    public static int width=600;
-    public static int height=600;
+    public static int width = 600;
+    public static int height = 600;
     private TextScore textScore;
 
 
     public GameWindow(Stage stage) {
         createPane();
-        Scene scene=createScene(pane);
+        Scene scene = createScene(pane);
+        setStage(stage, scene);
         createShip();
         createAsteroids();
         createProjectiles();
@@ -36,55 +37,55 @@ public class GameWindow {
         addElements(this.ship.getCharacter());
         addElements(asteroids);
         addElements(textScore.getText());
-        setStage(stage, scene);
         Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, textScore);
     }
 
-    public void createPane(){
-        pane=new Pane();
+    public void createPane() {
+        pane = new Pane();
         pane.setPrefSize(width, height);
     }
 
-    public void createShip(){
-        this.ship = new Ship(width/2,height/2);
+    public void createShip() {
+        this.ship = new Ship(width / 2, height / 2);
     }
-    public void createAsteroids(){
 
-        asteroids=new ArrayList<>();
-        for(int i=0;i<5;i++){
-            Random rnd= new Random();
-            Asteroid asteroid=new Asteroid(rnd.nextInt(width/3), rnd.nextInt(height));
+    public void createAsteroids() {
+
+        asteroids = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            Random rnd = new Random();
+            Asteroid asteroid = new Asteroid(rnd.nextInt(width / 3), rnd.nextInt(height));
             asteroids.add(asteroid);
         }
     }
-    public void createProjectiles(){
-        projectiles=new ArrayList<>();
+
+    public void createProjectiles() {
+        projectiles = new ArrayList<>();
     }
 
-    public Scene createScene(Pane pane){
-        Scene scene=new Scene(pane);
+    public Scene createScene(Pane pane) {
+        Scene scene = new Scene(pane);
         scene.setFill(Color.BLACK);
         return scene;
     }
 
-    public void addElements(ArrayList <Asteroid> asteroids){
+    public void addElements(ArrayList<Asteroid> asteroids) {
         asteroids.forEach(asteroid -> pane.getChildren().add(asteroid.getCharacter()));
     }
 
-    public void addElements(Node node){
+    public void addElements(Node node) {
         pane.getChildren().add(node);
     }
 
 
-    public void setStage(Stage stage, Scene scene){
+    public void setStage(Stage stage, Scene scene) {
         stage.setScene(scene);
         //stage.setFullScreen(true);
         stage.show();
     }
 
-    public void createScore()
-    {
-        textScore=new TextScore();
+    public void createScore() {
+        textScore = new TextScore();
     }
 
     public static double getHeight() {
