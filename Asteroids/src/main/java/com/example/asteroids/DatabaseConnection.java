@@ -1,6 +1,8 @@
 package com.example.asteroids;
+import javafx.scene.text.Text;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.Statement;
 
 public class DatabaseConnection {
 
@@ -21,4 +23,18 @@ public class DatabaseConnection {
 
         return databaseLink;
     }
+
+    public void updateDB(TextScore textScore)
+    {
+        DatabaseConnection connectNow=new DatabaseConnection();
+        Connection connectionDB=connectNow.getConnection();
+        try{
+            Statement statement=connectionDB.createStatement();
+            statement.executeUpdate("insert into asteroidsscore (score) values ('" + textScore.textParsing() +"');");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

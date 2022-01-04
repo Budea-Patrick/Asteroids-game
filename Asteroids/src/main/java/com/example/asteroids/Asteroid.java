@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Asteroid extends Entity {
 
-    private double rotation;
+    private final double rotation;
 
     public Asteroid(int x, int y) {
         super(new PolygonFactory().createPolygon(), x, y);

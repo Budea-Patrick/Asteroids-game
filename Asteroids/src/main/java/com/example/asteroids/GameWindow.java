@@ -23,7 +23,7 @@ public class GameWindow {
     private ArrayList<Projectile> projectiles;
     public static int width=600;
     public static int height=600;
-    private Text text;
+    private TextScore textScore;
 
 
     public GameWindow(Stage stage) {
@@ -32,12 +32,12 @@ public class GameWindow {
         createShip();
         createAsteroids();
         createProjectiles();
-        createText();
+        createScore();
         addElements(this.ship.getCharacter());
         addElements(asteroids);
-        addElements(text);
+        addElements(textScore.getText());
         setStage(stage, scene);
-        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, text);
+        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, textScore);
     }
 
     public void createPane(){
@@ -75,18 +75,16 @@ public class GameWindow {
         pane.getChildren().add(node);
     }
 
+
     public void setStage(Stage stage, Scene scene){
         stage.setScene(scene);
         //stage.setFullScreen(true);
         stage.show();
     }
 
-
-    public void createText()
+    public void createScore()
     {
-        text=new Text(10,20,"Points: 0");
-        text.setFont(Font.font("Verdana",20));
-        text.setFill(Color.WHITE);
+        textScore=new TextScore();
     }
 
     public static double getHeight() {
@@ -95,9 +93,5 @@ public class GameWindow {
 
     public static double getWidth() {
         return pane.getWidth();
-    }
-
-    public Text getText() {
-        return text;
     }
 }
