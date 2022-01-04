@@ -3,11 +3,16 @@ package com.example.asteroids;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.ConnectException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -65,8 +70,25 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 asteroids.forEach(asteroid -> {
                     if(ship.collision(asteroid)){
                         Alert alert= new Alert(Alert.AlertType.INFORMATION);
+                        /*
                         alert.setTitle("GAME OVER!");
                         alert.setContentText("YOU SUCK!!!");
+                        alert.show();*/
+                        DatabaseConnection connectNow=new DatabaseConnection();
+                        Connection connectionDB=connectNow.getConnection();
+                        String connectQuery="insert  into asteroidsscore (score) values ('" + text.getText() +"');";
+                        try{
+                            Statement statement=connectionDB.createStatement();
+                            statement.executeUpdate("insert into asteroidsscore (score) values ('" + text.getText() +"');");
+                            ResultSet queryOutput=statement.executeQuery(connectQuery);
+                            /*
+                            while(queryOutput.next()){
+                                alert.setContentText(queryOutput.getString("name"));
+                            }*/
+                        }
+                        catch (Exception e){
+
+                        }
                         alert.show();
                         this.stop();
                         stage.close();
@@ -88,7 +110,7 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 projectilesToRemove.forEach(projectile -> {
                     pane.getChildren().remove(projectile.getCharacter());
                     projectiles.remove(projectile);
-                    text.setText("Points: "+points.addAndGet(1000));
+                    text.setText("Points: "+points.addAndGet(100));
                 });
 
                 Iterator<Projectile> iterator=projectiles.iterator();

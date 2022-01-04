@@ -3,11 +3,13 @@ package com.example.asteroids;
 
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,6 +24,7 @@ public class GameWindow {
     public static int width=600;
     public static int height=600;
     private Text text;
+
 
     public GameWindow(Stage stage) {
         createPane();
@@ -94,4 +97,7 @@ public class GameWindow {
         return pane.getWidth();
     }
 
+    public Text getText() {
+        return text;
+    }
 }
