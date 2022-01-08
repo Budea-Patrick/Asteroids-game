@@ -4,6 +4,8 @@ package com.example.asteroids;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -17,8 +19,9 @@ import java.util.Random;
 
 public class GameWindow {
 
-    private static Pane pane;
+    private Pane pane;
     private Entity ship;
+    private Scene scene;
     private ArrayList<Asteroid> asteroids;
     private ArrayList<Projectile> projectiles;
     public static int width = 600;
@@ -28,7 +31,7 @@ public class GameWindow {
 
     public GameWindow(Stage stage) {
         createPane();
-        Scene scene = createScene(pane);
+        createScene(pane);
         setStage(stage, scene);
         createShip();
         createAsteroids();
@@ -38,6 +41,7 @@ public class GameWindow {
         addElements(asteroids);
         addElements(textScore.getText());
         Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, textScore);
+        stage.show();
     }
 
     public void createPane() {
@@ -63,10 +67,9 @@ public class GameWindow {
         projectiles = new ArrayList<>();
     }
 
-    public Scene createScene(Pane pane) {
-        Scene scene = new Scene(pane);
-        scene.setFill(Color.BLACK);
-        return scene;
+    public void createScene(Pane pane) {
+        scene = new Scene(pane);
+        scene.setFill(Color.YELLOW);
     }
 
     public void addElements(ArrayList<Asteroid> asteroids) {
@@ -81,18 +84,19 @@ public class GameWindow {
     public void setStage(Stage stage, Scene scene) {
         stage.setScene(scene);
         //stage.setFullScreen(true);
-        stage.show();
+        //stage.show();
     }
 
     public void createScore() {
         textScore = new TextScore();
     }
 
+    /*
     public static double getHeight() {
         return pane.getHeight();
     }
 
     public static double getWidth() {
         return pane.getWidth();
-    }
+    }*/
 }
