@@ -4,7 +4,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application{
     public void start(Stage stage){
-        GameWindow gameWindow=new GameWindow(stage);
+        new MainMenu(stage);
+        //GameWindow gameWindow=new GameWindow(stage);
         //EndScreen endScreen=new EndScreen(stage);
 
 
