@@ -38,6 +38,7 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
 
                 if(ship.collisionWithAsteroid(asteroids,textScore)){
                     stage.close();
+                    //MainMenu mainMenu = new MainMenu(new Stage());
                     EndScreen endScreen=new EndScreen(new Stage());
                     this.stop();
                 }
