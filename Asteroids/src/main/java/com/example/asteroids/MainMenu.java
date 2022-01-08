@@ -40,19 +40,19 @@ public class MainMenu {
     public void createGridPane() {
         this.menu = new GridPane();
         this.menu.setVgap(40);
-        this.menu.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.menu.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.menu.setPrefSize(600, 600);
     }
     public void createScene(Stage stage) {
         this.scene = new Scene(this.menu);
-        this.scene.setFill(Color.BLACK);
+        this.scene.setFill(Color.WHITE);
         stage.setScene(scene);
         stage.show();
     }
     public void createTextField() {
         this.titleScreen = new Label("ASTEROIDS");
         this.titleScreen.setFont(Font.font("Verdana", 70));
-        this.titleScreen.setTextFill(Color.WHITE);
+        this.titleScreen.setTextFill(Color.BLACK);
         this.titleScreen.setMinWidth(450);
         this.titleScreen.setMinHeight(100);
         this.titleScreen.setMaxWidth(450);
@@ -62,7 +62,7 @@ public class MainMenu {
     }
     public void createButtons(Stage stage) {
         this.btnContainer = new StackPane();
-        this.btnContainer.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.btnContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.startBtn = new Button("START");
         this.lbBtn = new Button("LEADERBOARD");
         this.exit = new Button("EXIT GAME");
@@ -70,18 +70,18 @@ public class MainMenu {
         this.startBtn.setMinWidth(200);
         this.lbBtn.setMinWidth(200);
         this.exit.setMinWidth(200);
-        this.startBtn.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.startBtn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         this.startBtn.setFont(Font.font("Verdana", 20));
-        this.startBtn.setTextFill(Color.WHITE);
-        this.startBtn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.lbBtn.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.startBtn.setTextFill(Color.BLACK);
+        this.startBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.lbBtn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         this.lbBtn.setFont(Font.font("Verdana", 20));
-        this.lbBtn.setTextFill(Color.WHITE);
-        this.lbBtn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        this.exit.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.lbBtn.setTextFill(Color.BLACK);
+        this.lbBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.exit.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         this.exit.setFont(Font.font("Verdana", 20));
-        this.exit.setTextFill(Color.WHITE);
-        this.exit.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.exit.setTextFill(Color.BLACK);
+        this.exit.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         ////Adding buttons to grid
         this.menu.add(this.titleScreen, 1, 0);
         this.menu.add(startBtn, 1, 1);
@@ -95,15 +95,15 @@ public class MainMenu {
                 button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                        button.setTextFill(Color.BLACK);
-                        button.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                        button.setTextFill(Color.WHITE);
+                        button.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
                     }
                 });
                 button.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(javafx.scene.input.MouseEvent mouseEvent) {
-                        button.setTextFill(Color.WHITE);
-                        button.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+                        button.setTextFill(Color.BLACK);
+                        button.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                     }
                 });
                 if("EXIT GAME".equals(button.getText())) {
@@ -118,7 +118,16 @@ public class MainMenu {
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                            new GameWindow(new Stage());
+                            //GameWindow gameWindow=new GameWindow(new Stage());
+                            new GameWindow(stage);
+                        }
+                    });
+                }
+                if("LEADERBOARD".equals((button.getText()))){
+                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+                            new Leaderboard(stage);
                         }
                     });
                 }

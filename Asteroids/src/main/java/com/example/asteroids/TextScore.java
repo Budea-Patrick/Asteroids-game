@@ -13,7 +13,7 @@ public class TextScore {
     public TextScore() {
         text = new Text(10,20,"Points: 0");
         text.setFont(Font.font("Verdana",20));
-        text.setFill(Color.WHITE);
+        text.setFill(Color.BLACK);
     }
 
     public Text getText() {

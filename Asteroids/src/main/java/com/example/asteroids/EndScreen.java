@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -89,6 +88,7 @@ public class EndScreen {
             public void handle(ActionEvent actionEvent) {
                 String name=userTextField.getText();
                 DatabaseConnection.updateDB(name);
+                //new Leaderboard(stage);
                 stage.close();
             }
         });

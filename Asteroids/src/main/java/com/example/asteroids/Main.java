@@ -7,6 +7,8 @@ public class Main extends Application{
         new MainMenu(stage);
         //GameWindow gameWindow=new GameWindow(stage);
         //EndScreen endScreen=new EndScreen(stage);
+        //DatabaseConnection.getPlayersName();
+        //Leaderboard l=new Leaderboard(stage);
 
 
         /*
@@ -27,6 +29,6 @@ public class Main extends Application{
             }
         });
         */
-
     }
+
 }

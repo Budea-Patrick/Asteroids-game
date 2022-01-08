@@ -44,16 +44,16 @@ public abstract class Entity {
         character.setTranslateY(character.getTranslateY() + movement.getY());
 
         if(character.getTranslateX()<0){
-            this.character.setTranslateX(this.character.getTranslateX() + GameWindow.getWidth());
+            this.character.setTranslateX(this.character.getTranslateX() + 600);
         }
-        if(character.getTranslateX()>GameWindow.getWidth()){
-            this.character.setTranslateX(this.character.getTranslateX()%GameWindow.getWidth());
+        if(character.getTranslateX()>600){
+            this.character.setTranslateX(this.character.getTranslateX()%600);
         }
         if(this.character.getTranslateY()<0){
-            this.character.setTranslateY(this.character.getTranslateY()+GameWindow.getHeight());
+            this.character.setTranslateY(this.character.getTranslateY()+600);
         }
-        if(this.character.getTranslateY()>GameWindow.getHeight()){
-            this.character.setTranslateY(this.character.getTranslateY()%GameWindow.getHeight());
+        if(this.character.getTranslateY()>600){
+            this.character.setTranslateY(this.character.getTranslateY()%600);
         }
     }
 
