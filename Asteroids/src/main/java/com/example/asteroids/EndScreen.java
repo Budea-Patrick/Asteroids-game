@@ -87,9 +87,11 @@ public class EndScreen {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String name=userTextField.getText();
-                DatabaseConnection.updateDB(name);
-                //new Leaderboard(stage);
-                stage.close();
+                if(!name.isEmpty()){
+                    DatabaseConnection.updateDB(name);
+                    stage.close();
+                }
+                //new Leaderboard(stage)
             }
         });
     }

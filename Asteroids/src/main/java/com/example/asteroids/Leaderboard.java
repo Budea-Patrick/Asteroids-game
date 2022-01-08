@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Leaderboard {
 
@@ -28,9 +29,9 @@ public class Leaderboard {
         createGrid();
         styleStuff();
         scene=new Scene(leaderboard);
+        scene.setFill(Color.RED);
         stage.setScene(scene);
         stage.setMaximized(true);
-        stage.show();
     }
     public void createGrid() {
         leaderboard=new GridPane();
