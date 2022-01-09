@@ -20,7 +20,6 @@ public class EndScreen {
 
     private GridPane pane;
     private Scene scene;
-    private Label userName;
     private TextField userTextField;
     private Button btn;
     private HBox hbBtn;
@@ -28,10 +27,10 @@ public class EndScreen {
     private Button playBtn;
 
     public EndScreen(Stage stage) {
+        stage.setTitle("Asteroids");
         createPane();
         createScene(stage);
         createSceneTitle();
-        //createLabel();
         createTextField();
         createButton();
         createAction(stage);
@@ -58,15 +57,6 @@ public class EndScreen {
         pane.add(sceneTitle, 1, 0);
     }
 
-    public void createLabel()
-    {
-        userName=new Label("YES");
-        //userName.setMinHeight(50);
-        //userName.setMinWidth(50);
-        //userName.setFont(Font.font("Tahoma", FontWeight.NORMAL,20));
-        //userName.setTextFill(Color.BLACK);
-        pane.add(userName, 1, 1);
-    }
 
     public void createTextField()
     {
@@ -119,10 +109,8 @@ public class EndScreen {
                     userTextField.clear();
                     userTextField.setPromptText("Score Submitted!");
                     btn.setVisible(false);
-                    int i = GridPane.getRowIndex(lbBtn);
                     GridPane.setRowIndex(lbBtn, 2);
                 }
-                //new Leaderboard(stage)
             }
         });
         this.btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {

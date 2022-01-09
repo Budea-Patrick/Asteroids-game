@@ -23,7 +23,7 @@ public class Ship extends Entity {
 
     public boolean collisionWithAsteroid(ArrayList<Asteroid> asteroids) {
         AtomicBoolean checkForCollision= new AtomicBoolean(false);
-        asteroids.forEach(asteroid -> asteroid.move());
+        asteroids.forEach(Asteroid::move);
         asteroids.forEach(asteroid -> {
             if (this.collision(asteroid)) {
                 checkForCollision.set(true);

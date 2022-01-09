@@ -31,7 +31,7 @@ public class Asteroid extends Entity {
     }
 
     public static void laserCollision(ArrayList<Projectile> projectiles, ArrayList<Asteroid> asteroids, Pane pane, AtomicInteger points, TextScore textScore) {
-        projectiles.forEach(projectile -> projectile.move());
+        projectiles.forEach(Entity::move);
         List<Projectile> projectilesToRemove = projectiles.stream().filter(projectile -> {
             List<Asteroid> collisions = asteroids.stream()
                     .filter(asteroid -> asteroid.collision(projectile)).toList();

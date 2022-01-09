@@ -20,13 +20,13 @@ public class Leaderboard {
 
     private ArrayList<Player> top10;
     private GridPane leaderboard;
-    private GridPane buttons;
     private Button mainBtn;
     private Scene scene;
     private Label label;
 
 
     public Leaderboard(Stage stage) {
+        stage.setTitle("Asteroids");
         top10=DatabaseConnection.getPlayersInfo();
         createGrid();
         styleStuff(stage);

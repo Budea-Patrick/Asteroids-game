@@ -74,6 +74,7 @@ public class GameWindow {
 
 
     public void setStage(Stage stage) {
+        stage.setTitle("Asteroids");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();

@@ -94,9 +94,8 @@ public class MainMenu {
         this.menu.add(exit, 1, 3);
         ////Adding event handler for animation and setting each cell to pe centered horizontally
         this.menu.getChildren().forEach(child -> {
-            this.menu.setHalignment(child, HPos.CENTER);
-            if (child instanceof Button) {
-                Button button = (Button) child;
+            GridPane.setHalignment(child, HPos.CENTER);
+            if (child instanceof Button button) {
                 button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(javafx.scene.input.MouseEvent mouseEvent) {
