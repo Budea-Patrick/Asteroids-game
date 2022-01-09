@@ -24,6 +24,8 @@ public class EndScreen {
     private TextField userTextField;
     private Button btn;
     private HBox hbBtn;
+    private Button lbBtn;
+    private Button playBtn;
 
     public EndScreen(Stage stage) {
         createPane();
@@ -79,25 +81,46 @@ public class EndScreen {
 
     public void createButton()
     {
+        lbBtn = new Button("Leaderboard");
+        playBtn = new Button("Play Again");
         btn=new Button("Enter");
+        btn.setPrefSize(175, 20);
+        lbBtn.setPrefSize(175, 20);
+        playBtn.setPrefSize(175, 20);
         hbBtn=new HBox(10);
-        hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
+        hbBtn.setAlignment(Pos.CENTER_LEFT);
         hbBtn.getChildren().add(btn);
         this.btn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         this.btn.setFont(Font.font("Verdana", 20));
         this.btn.setTextFill(Color.BLACK);
         this.btn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.lbBtn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.lbBtn.setFont(Font.font("Verdana", 20));
+        this.lbBtn.setTextFill(Color.BLACK);
+        this.lbBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        this.playBtn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.playBtn.setFont(Font.font("Verdana", 20));
+        this.playBtn.setTextFill(Color.BLACK);
+        this.playBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.add(hbBtn, 2, 2);
+        pane.add(new Label(), 1, 3);
+        pane.add(new Label(), 2, 3);
+        pane.add(playBtn, 1 ,4);
+        pane.add(lbBtn, 2, 4);
     }
     public void createAction(Stage stage)
     {
-        btn.setOnAction(new EventHandler<>() {
+       btn.setOnAction(new EventHandler<>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 String name=userTextField.getText();
                 if(!name.isEmpty()){
                     DatabaseConnection.updateDB(name);
-                    stage.close();
+                    userTextField.clear();
+                    userTextField.setPromptText("Score Submitted!");
+                    btn.setVisible(false);
+                    int i = GridPane.getRowIndex(lbBtn);
+                    GridPane.setRowIndex(lbBtn, 2);
                 }
                 //new Leaderboard(stage)
             }
@@ -114,6 +137,49 @@ public class EndScreen {
             public void handle(MouseEvent mouseEvent) {
                 btn.setTextFill(Color.BLACK);
                 btn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        this.lbBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                lbBtn.setTextFill(Color.WHITE);
+                lbBtn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        this.lbBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                lbBtn.setTextFill(Color.BLACK);
+                lbBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        this.playBtn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                playBtn.setTextFill(Color.WHITE);
+                playBtn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        this.playBtn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                playBtn.setTextFill(Color.BLACK);
+                playBtn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        lbBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //GameWindow gameWindow=new GameWindow(new Stage());
+                new Leaderboard(stage);
+            }
+        });
+        playBtn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                //GameWindow gameWindow=new GameWindow(new Stage());
+                stage.close();
+                new GameWindow(stage);
             }
         });
     }
