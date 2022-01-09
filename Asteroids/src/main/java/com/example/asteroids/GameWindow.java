@@ -62,7 +62,7 @@ public class GameWindow {
 
     public void createScene() {
         scene = new Scene(pane);
-        scene.setFill(Color.BLACK);
+        scene.setFill(Color.BLUE);
     }
 
     public void addElements(ArrayList<Asteroid> asteroids) {
@@ -75,7 +75,6 @@ public class GameWindow {
 
 
     public void setStage(Stage stage) {
-        stage.getScene().getWindow().hide();
         stage.setScene(scene);
         stage.show();
     }
