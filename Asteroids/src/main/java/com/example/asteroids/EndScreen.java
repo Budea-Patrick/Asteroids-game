@@ -14,10 +14,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
 public class EndScreen {
 
-    private StackPane pane;
+    private GridPane pane;
     private Scene scene;
     private Label userName;
     private TextField userTextField;
@@ -27,7 +28,7 @@ public class EndScreen {
     public EndScreen(Stage stage) {
         createPane();
         createScene(stage);
-        //createSceneTitle();
+        createSceneTitle();
         //createLabel();
         createTextField();
         createButton();
@@ -35,7 +36,9 @@ public class EndScreen {
     }
 
     public void createPane() {
-        pane = new StackPane();
+        pane = new GridPane();
+        pane.setAlignment(Pos.CENTER);
+        pane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setPrefSize(600,600);
     }
 
@@ -48,10 +51,9 @@ public class EndScreen {
     public void createSceneTitle()
     {
         Text sceneTitle = new Text("YOU LOST!");
-        sceneTitle.setFont(Font.font("Tahoma", FontWeight.NORMAL,60));
-        sceneTitle.setFill(Color.WHITE);
-        pane.getChildren().add(sceneTitle);
-        StackPane.setAlignment(sceneTitle,Pos.CENTER);
+        sceneTitle.setFont(Font.font("Verdana", FontWeight.NORMAL,60));
+        sceneTitle.setFill(Color.BLACK);
+        pane.add(sceneTitle, 1, 0);
     }
 
     public void createLabel()
@@ -61,15 +63,18 @@ public class EndScreen {
         //userName.setMinWidth(50);
         //userName.setFont(Font.font("Tahoma", FontWeight.NORMAL,20));
         //userName.setTextFill(Color.BLACK);
-        StackPane.setAlignment(userName,Pos.TOP_CENTER);
-        pane.getChildren().add(userName);
+        pane.add(userName, 1, 1);
     }
 
     public void createTextField()
     {
-        userTextField=new TextField();
-        StackPane.setAlignment(userTextField,Pos.CENTER);
-        pane.getChildren().add(userTextField);
+        this.userTextField=new TextField();
+        userTextField.setPromptText("Username");
+        this.userTextField.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.userTextField.setFont(Font.font("Verdana", 20));
+        this.userTextField.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane.add(userTextField, 1, 2);
+
     }
 
     public void createButton()
@@ -78,9 +83,12 @@ public class EndScreen {
         hbBtn=new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
-        pane.getChildren().add(hbBtn);
+        this.btn.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.btn.setFont(Font.font("Verdana", 20));
+        this.btn.setTextFill(Color.BLACK);
+        this.btn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane.add(hbBtn, 2, 2);
     }
-
     public void createAction(Stage stage)
     {
         btn.setOnAction(new EventHandler<>() {
@@ -92,6 +100,20 @@ public class EndScreen {
                     stage.close();
                 }
                 //new Leaderboard(stage)
+            }
+        });
+        this.btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                btn.setTextFill(Color.WHITE);
+                btn.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+            }
+        });
+        this.btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                btn.setTextFill(Color.BLACK);
+                btn.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
             }
         });
     }
