@@ -1,5 +1,5 @@
 package com.example.asteroids;
-import javafx.scene.control.Alert;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Polygon;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class Ship extends Entity {
         pane.getChildren().add(projectile.getCharacter());
     }
 
-    public boolean collisionWithAsteroid(ArrayList<Asteroid> asteroids, TextScore textScore) {
+    public boolean collisionWithAsteroid(ArrayList<Asteroid> asteroids) {
         AtomicBoolean checkForCollision= new AtomicBoolean(false);
         asteroids.forEach(asteroid -> asteroid.move());
         asteroids.forEach(asteroid -> {

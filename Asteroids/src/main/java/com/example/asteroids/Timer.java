@@ -3,7 +3,6 @@ package com.example.asteroids;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
@@ -27,7 +26,6 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
 
         AtomicInteger points=new AtomicInteger();
         KeyHandler keyHandler=new KeyHandler();
-
         keyHandler.initialize(scene);
 
         new AnimationTimer() {
@@ -37,13 +35,11 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 keyHandler.movement(ship);
                 keyHandler.shoot(projectiles,ship,pane);
 
-                if(ship.collisionWithAsteroid(asteroids,textScore)){
+                if(ship.collisionWithAsteroid(asteroids)){
                     stage.close();
-                    //MainMenu mainMenu = new MainMenu(new Stage());
-                    EndScreen endScreen=new EndScreen(new Stage());
+                    new EndScreen(new Stage());
                     this.stop();
                 }
-
                 Asteroid.laserCollision(projectiles,asteroids,pane,points,textScore);
                 Asteroid.addAsteroids(ship,asteroids,pane);
 

@@ -15,23 +15,22 @@ public class Asteroid extends Entity {
     public Asteroid(int x, int y) {
         super(new PolygonFactory().createPolygon(), x, y);
 
-        Random rand=new Random();
+        Random rand = new Random();
         super.getCharacter().setRotate(rand.nextInt(360));
-        int acceleration=1+rand.nextInt(30);
-        for(int i=0;i<acceleration;i++){
+        int acceleration = 1 + rand.nextInt(90);
+        for (int i = 0; i < acceleration; i++) {
             accelerate();
         }
-        this.rotation=0.5-rand.nextDouble();
+        this.rotation = 0.5 - rand.nextDouble();
     }
 
     @Override
-    public void move(){
+    public void move() {
         super.move();
-        super.getCharacter().setRotate(super.getCharacter().getRotate()+rotation);
+        super.getCharacter().setRotate(super.getCharacter().getRotate() + rotation);
     }
 
-    public static void laserCollision(ArrayList<Projectile> projectiles, ArrayList<Asteroid> asteroids, Pane pane, AtomicInteger points, TextScore textScore)
-    {
+    public static void laserCollision(ArrayList<Projectile> projectiles, ArrayList<Asteroid> asteroids, Pane pane, AtomicInteger points, TextScore textScore) {
         projectiles.forEach(projectile -> projectile.move());
         List<Projectile> projectilesToRemove = projectiles.stream().filter(projectile -> {
             List<Asteroid> collisions = asteroids.stream()
@@ -48,23 +47,23 @@ public class Asteroid extends Entity {
         projectilesToRemove.forEach(projectile -> {
             pane.getChildren().remove(projectile.getCharacter());
             projectiles.remove(projectile);
-            textScore.getText().setText("Points: "+points.addAndGet(100));
+            textScore.getText().setText("Points: " + points.addAndGet(100));
         });
 
-        Iterator<Projectile> iterator=projectiles.iterator();
-        while(iterator.hasNext()){
-            Projectile projectile=iterator.next();
-            if(System.currentTimeMillis()-projectile.getStartTime()>2000){
+        Iterator<Projectile> iterator = projectiles.iterator();
+        while (iterator.hasNext()) {
+            Projectile projectile = iterator.next();
+            if (System.currentTimeMillis() - projectile.getStartTime() > 2000) {
                 pane.getChildren().remove(projectile.getCharacter());
                 iterator.remove();
             }
         }
     }
 
-    public static void addAsteroids(Ship ship, ArrayList<Asteroid> asteroids, Pane pane){
-        if(Math.random()<0.020){
-            Asteroid asteroid=new Asteroid(GameWindow.width, GameWindow.height);
-            if(!asteroid.collision(ship)){
+    public static void addAsteroids(Ship ship, ArrayList<Asteroid> asteroids, Pane pane) {
+        if (Math.random() < 0.020) {
+            Asteroid asteroid = new Asteroid(GameWindow.width, GameWindow.height);
+            if (!asteroid.collision(ship)) {
                 asteroids.add(asteroid);
                 pane.getChildren().add(asteroid.getCharacter());
             }

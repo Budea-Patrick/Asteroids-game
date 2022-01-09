@@ -29,8 +29,10 @@ public class MainMenu {
     private GridPane menu;
     private StackPane btnContainer;
     private Scene scene;
-    private Box contentBox;
+
     public MainMenu(Stage stage) {
+        stage.setTitle("Asteroids");
+        stage.setResizable(false);
         createGridPane();
         createTextField();
         createButtons(stage);
@@ -43,12 +45,14 @@ public class MainMenu {
         this.menu.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         this.menu.setPrefSize(600, 600);
     }
+
     public void createScene(Stage stage) {
         this.scene = new Scene(this.menu);
         this.scene.setFill(Color.WHITE);
         stage.setScene(scene);
         stage.show();
     }
+
     public void createTextField() {
         this.titleScreen = new Label("ASTEROIDS");
         this.titleScreen.setFont(Font.font("Verdana", 70));
@@ -60,6 +64,7 @@ public class MainMenu {
         this.titleScreen.setAlignment(Pos.CENTER);
         this.menu.setAlignment(Pos.CENTER);
     }
+
     public void createButtons(Stage stage) {
         this.btnContainer = new StackPane();
         this.btnContainer.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -90,8 +95,8 @@ public class MainMenu {
         ////Adding event handler for animation and setting each cell to pe centered horizontally
         this.menu.getChildren().forEach(child -> {
             this.menu.setHalignment(child, HPos.CENTER);
-            if(child instanceof Button) {
-                Button button = (Button)child;
+            if (child instanceof Button) {
+                Button button = (Button) child;
                 button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(javafx.scene.input.MouseEvent mouseEvent) {
@@ -106,7 +111,7 @@ public class MainMenu {
                         button.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                     }
                 });
-                if("EXIT GAME".equals(button.getText())) {
+                if ("EXIT GAME".equals(button.getText())) {
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
@@ -114,7 +119,7 @@ public class MainMenu {
                         }
                     });
                 }
-                if("START".equals(button.getText())) {
+                if ("START".equals(button.getText())) {
                     button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
@@ -123,8 +128,8 @@ public class MainMenu {
                         }
                     });
                 }
-                if("LEADERBOARD".equals((button.getText()))){
-                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
+                if ("LEADERBOARD".equals((button.getText()))) {
+                    button.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
                             new Leaderboard(stage);
@@ -135,6 +140,7 @@ public class MainMenu {
 
         });
     }
+
     public void closeGame(Stage stage) {
         stage.close();
     }

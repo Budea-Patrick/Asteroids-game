@@ -1,4 +1,5 @@
 package com.example.asteroids;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -33,8 +34,7 @@ public class GameWindow {
         addElements(this.ship.getCharacter());
         addElements(asteroids);
         addElements(textScore.getText());
-        Timer timer = new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, textScore);
-
+        new Timer(stage, scene, (Ship) ship, asteroids, projectiles, pane, textScore);
     }
 
     public void createPane() {
@@ -47,7 +47,6 @@ public class GameWindow {
     }
 
     public void createAsteroids() {
-
         asteroids = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             Random rnd = new Random();
@@ -76,6 +75,7 @@ public class GameWindow {
 
     public void setStage(Stage stage) {
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
