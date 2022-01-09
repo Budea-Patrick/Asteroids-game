@@ -42,13 +42,12 @@ public class DatabaseConnection {
         try {
             ArrayList<Player> top10 = new ArrayList<>();
             Statement getName = databaseConnection.createStatement();
-            ResultSet resultSet = getName.executeQuery("select name, score from asteroidsscore order by score desc limit 10;");
+            ResultSet resultSet = getName.executeQuery("select name, score from asteroidsscore order by score desc limit 5;");
             while (resultSet.next()) {
                 Player player = new Player();
                 player.setName(resultSet.getString(1));
                 player.setScore(resultSet.getInt(2));
                 top10.add(player);
-                System.out.println(player.getName() + player.getScore());
             }
             return top10;
         } catch (Exception e) {

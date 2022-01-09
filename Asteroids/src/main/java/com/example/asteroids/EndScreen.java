@@ -47,6 +47,7 @@ public class EndScreen {
         scene=new Scene(this.pane);
         scene.setFill(Color.BLACK);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
     public void createSceneTitle()

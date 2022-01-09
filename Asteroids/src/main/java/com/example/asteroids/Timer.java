@@ -42,7 +42,6 @@ public record Timer(Stage stage, Scene scene, Ship ship, ArrayList<Asteroid> ast
                 }
                 Asteroid.laserCollision(projectiles,asteroids,pane,points,textScore);
                 Asteroid.addAsteroids(ship,asteroids,pane);
-
             }
         }.start();
     }
